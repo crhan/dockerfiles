@@ -1,0 +1,17 @@
+[Unit]
+Description=grafana
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill grafana
+ExecStartPre=-/usr/bin/docker rm grafana
+#ExecStartPre=/usr/bin/docker pull grafana/grafana
+ExecStart=/usr/bin/docker run --name=grafana -v grafana-data:/var/lib/grafana -v /etc/localtime:/etc/localtime -p 3000:3000 -e "GF_SERVER_ROOT_URL=http://coreos.crhan.com/" grafana/grafana
+ExecStop=/usr/bin/docker stop grafana
+
+
+[Install]
+WantedBy=multi-user.target
+

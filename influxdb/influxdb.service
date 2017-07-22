@@ -1,0 +1,15 @@
+[Unit]
+Description=influxdb Service
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill influxdb
+ExecStartPre=-/usr/bin/docker rm influxdb
+ExecStart=/usr/bin/docker run --name=influxdb -p8086:8086 -v /etc/localtime:/etc/localtime -v influxdb:/var/lib/influxdb influxdb:1.2-alpine
+ExecStop=/usr/bin/docker stop influxdb
+
+[Install]
+WantedBy=multi-user.target
+
