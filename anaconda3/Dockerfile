@@ -1,7 +1,7 @@
 from krallin/centos-tini:7
 maintainer ruohan.chen <crhan123@gmail.com>
 
-RUN yum install bzip2 -y
+RUN yum groupinstall 'Development Tools' -y
 RUN curl https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh > ~/anaconda.sh && \
       /bin/bash ~/anaconda.sh -b -p /opt/conda && \
       rm ~/anaconda.sh
